@@ -24,4 +24,9 @@ public class GenericException {
         ErrorResponse errorResponse=new ErrorResponse(LocalDateTime.now(),e.getMessage(),"runtime exception");
         return new ResponseEntity<>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(DocumentNotFoundException.class)
+    public ResponseEntity<?> handleDocumentsException(DocumentNotFoundException e){
+        ErrorResponse errorResponse=new ErrorResponse(LocalDateTime.now(),e.getMessage(),"documents not found");
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
 }
