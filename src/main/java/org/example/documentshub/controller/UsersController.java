@@ -2,6 +2,7 @@ package org.example.documentshub.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.documentshub.DTO.UsersDTO;
+import org.example.documentshub.exception.UsersNotFoundException;
 import org.example.documentshub.model.Users;
 import org.example.documentshub.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class UsersController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<UsersDTO> updateUsers(@PathVariable String id,@RequestBody Users users){
+    public ResponseEntity<UsersDTO> updateUsers(@PathVariable String id,@RequestBody Users users) throws UsersNotFoundException {
         return new ResponseEntity<>(userService.update(id,users),HttpStatus.OK);
     }
 }

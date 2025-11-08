@@ -9,7 +9,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersDTO {
-    private String id;
     private String username;
     private Set<String> roles;
 }
