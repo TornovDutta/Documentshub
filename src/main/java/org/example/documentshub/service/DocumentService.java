@@ -1,18 +1,23 @@
 package org.example.documentshub.service;
 
-import org.example.documentshub.model.DocumentEnitity;
+import org.example.documentshub.DTO.DocumentsDTO;
+import org.example.documentshub.exception.DocumentNotFoundException;
+import org.example.documentshub.exception.UsersNotFoundException;
 
 import java.util.List;
 
 public interface DocumentService {
 
-    List<DocumentEnitity> getAll();
 
-    DocumentEnitity getById(String id);
+    List<DocumentsDTO> getAll();
 
-    DocumentEnitity create(String userId, DocumentEnitity document);
+    DocumentsDTO getById(String id) throws DocumentNotFoundException;
 
-    DocumentEnitity update(String docId, String userId, DocumentEnitity document);
+    DocumentsDTO create(String userId, DocumentsDTO document) throws UsersNotFoundException;
 
-    void delete(String docId, String userId);
+    DocumentsDTO update(String docId, String userId, DocumentsDTO document)
+            throws UsersNotFoundException, DocumentNotFoundException;
+
+    void delete(String docId, String userId)
+            throws UsersNotFoundException, DocumentNotFoundException;
 }

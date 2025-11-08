@@ -13,7 +13,7 @@ public class DocumentVersionDTO {
     private String id;
     private String title;
     private String description;
-    private String createdBy;
+
     private LocalDateTime createdAt;
     private List<DocumentVersionDTO> versions;
 }
