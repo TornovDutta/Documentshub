@@ -7,6 +7,8 @@ import org.example.documentshub.exception.UsersNotFoundException;
 import org.example.documentshub.model.Users;
 import org.example.documentshub.repo.UsersRepo;
 import org.example.documentshub.service.AdminService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminServiceImple implements AdminService {
     private final UsersRepo usersRepo;
+
+    private final BCryptPasswordEncoder encoder;
 
     public List<UsersDTO> getAll() {
         List<Users> users = usersRepo.findAll();
@@ -37,7 +41,7 @@ public class AdminServiceImple implements AdminService {
 
     public UsersDTO add(Users users){
         users.setUserName(users.getUserName());
-        users.setPassword(users.getPassword());
+        users.setPassword(encoder.encode(users.getPassword()));
         users.setRole(Set.of("ADMIN"));
 
         Users saveUser=usersRepo.save(users);
@@ -57,7 +61,7 @@ public class AdminServiceImple implements AdminService {
             throw new AdminNotFoundException("admin not found");
         }
         existedUser.setUserName(users.getUserName());
-        existedUser.setPassword(users.getPassword());
+        existedUser.setPassword(encoder.encode(users.getPassword()));
 
         usersRepo.save(existedUser);
 
